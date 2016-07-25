@@ -10,6 +10,10 @@ var segmentObjs : GameObject[];
 
 var pivots : Vector2[];
 
+var tester : Transform;
+
+var attach : boolean;
+
 function Start(){
     pivots = new Vector2[ segments ];
     segmentObjs = new GameObject[ segments ];
@@ -38,16 +42,12 @@ function SpawnRope ( _segments : int, _segLength : float ) {
 
     }
 
+    if ( attach ){
+        yield WaitForSeconds(0.5);
+        segmentObjs[ _segments - 1 ].GetComponent(Rigidbody2D).isKinematic = true;
+    }
 }
 
     function OnDrawGizmos(){
-        if ( pivots != null ){
-
-            var i=0;
-
-            while ( i < segments ){
-                Gizmos.DrawWireSphere( Vector3(pivots[i].x, pivots[i].y, 0), thickness );
-                i++;
-            }
-        }
+        Gizmos.DrawWireSphere( transform.position, 1 );
     }
